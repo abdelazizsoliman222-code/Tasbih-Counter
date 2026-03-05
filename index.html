@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tasbih Counter</title>
+</head>
+
+<body>
+
+<div align="center">
+
+<h1>Tasbih Counter</h1>
+
+<p>Enter your target:</p>
+<input type="number" id="target" value="33">
+
+<h2 id="count">0</h2>
+<h3 id="highScore">High Score: 0</h3>
+
+<input 
+type="image"
+src="اذكر الله .png"
+width="120"
+height="120"
+onclick="addLap(); return false;"
+>
+
+<p>Progress:</p>
+<progress id="progressBar" value="0" max="10"></progress>
+
+<p>Energy level:</p>
+<meter id="energy" min="0" max="100" value="0"></meter>
+
+</div>
+
+<table width="100%">
+<tr>
+<td align="left">
+<div id="motivationLeftBox" style="border:1px solid black; padding:5px; display:none; background-color:#f0f0f0; width:90%">
+<p id="motivationLeft"></p>
+</div>
+</td>
+<td align="right">
+<div id="motivationRightBox" style="border:1px solid black; padding:5px; display:none; background-color:#f0f0f0; width:90%">
+<p id="motivationRight"></p>
+</div>
+</td>
+</tr>
+</table>
+
+<script>
+
+let count = 0;
+let highScore = 0;
+
+let messages = [
+
+"تذكر دائماً أن سلعة الله غالية، ألا إن سلعة الله الجنة",
+"تفائل فما كان الله ليرد قلباً دعاه، بل يرزقه أفضل مما تمنى",
+"كلما حفظت آية من كتاب الله، كلما نسجت خيطاً من لباس حلة الكرامة يوم القيامة",
+"الطريق إلى الله يحتاج إلى صبر، والثبات هو سر الفوز بالجنة",
+"خلف كل ضيق يأتي فرج الله، لا تحزن فالله معك",
+"اعمل لدنياك كأنك تعيش أبداً، واعمل لآخرتك كأنك تموت غداً",
+"من ترك شيئاً لله عوضه الله خيراً منه",
+"اجعل نيتك صادقة لله، فالله يبارك في القليل فيصبح كثيراً",
+"القرب من الله راحة لا يعرفها إلا من جربها",
+"الدعاء قوة خفية تغير الأقدار بإذن الله",
+"مع الصبر والتوكل يفتح الله أبواباً لم تكن في الحسبان",
+"إذا ضاقت بك الدنيا فتذكر أن الله أقرب إليك من همك"
+
+];
+
+function addLap(){
+
+count++;
+
+document.getElementById("count").innerText = count;
+
+let target = document.getElementById("target").value;
+
+document.getElementById("progressBar").max = target;
+document.getElementById("progressBar").value = count;
+
+let percent = (count/target)*100;
+document.getElementById("energy").value = percent;
+
+if(count == target){
+
+let randomIndex = Math.floor(Math.random() * messages.length);
+document.getElementById("motivationLeft").innerText = messages[randomIndex];
+document.getElementById("motivationLeftBox").style.display = "block";
+
+if(count > highScore){
+highScore = count;
+document.getElementById("highScore").innerText = "High Score: " + highScore;
+document.getElementById("motivationRight").innerText = "Congratulations! You broke your High Score!";
+document.getElementById("motivationRightBox").style.display = "block";
+} else {
+document.getElementById("motivationRight").innerText = "";
+document.getElementById("motivationRightBox").style.display = "none";
+}
+
+setTimeout(() => {
+document.getElementById("motivationLeftBox").style.display = "none";
+document.getElementById("motivationRightBox").style.display = "none";
+}, 5000);
+
+count = 0;
+document.getElementById("count").innerText = count;
+document.getElementById("progressBar").value = 0;
+document.getElementById("energy").value = 0;
+
+}
+
+}
+
+</script>
+
+<footer align="center">Made by: Abdelaziz Soliman</footer> 
+</body>
+</html>
